@@ -45,7 +45,7 @@ jobs:
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'DisasterPredictionApi'
+        app-name: 'disasterpredictionapi'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_79576ff8b4b147aa9ced649ea853d855 }}
         images: 'disasterpredictionapi.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_46439a78353147b4ad52222679f59087 }}/disasterpredictionapi:${{ github.sha }}'
