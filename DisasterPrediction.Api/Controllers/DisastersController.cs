@@ -15,12 +15,12 @@ public class DisastersController : ControllerBase
         _disasterAlertService = disasterAlertService;
     }
 
-    [HttpPost("regions")]
-    public async Task<IActionResult> CreateRegions(IEnumerable<RegionRequest> requests)
-    {
-        await _disasterAlertService.CreateRegionsAsync(requests);
-        return Ok("Regions created successfully");
-    }
+    //[HttpPost("regions")]
+    //public async Task<IActionResult> CreateRegions(IEnumerable<RegionRequest> requests)
+    //{
+    //    await _disasterAlertService.CreateRegionsAsync(requests);
+    //    return Ok("Regions created successfully");
+    //}
 
 
     [HttpPost("alert-settings")]
