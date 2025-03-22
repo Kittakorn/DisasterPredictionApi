@@ -1,4 +1,6 @@
-﻿namespace DisasterPrediction.Api.Services;
+﻿using DisasterPrediction.Api.Interfaces;
+
+namespace DisasterPrediction.Api.Services;
 
 public class MailGunService : IMailGunService
 {
@@ -23,8 +25,6 @@ public class MailGunService : IMailGunService
 
         var response = await _client.PostAsync("messages", new FormUrlEncodedContent(form));
         if (!response.IsSuccessStatusCode)
-        {
             throw new InvalidOperationException($"Failed to send email: {response.StatusCode}");
-        }
     }
 }

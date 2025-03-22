@@ -1,5 +1,5 @@
 ﻿using DisasterPrediction.Api.Data;
-using DisasterPrediction.Api.Services;
+using DisasterPrediction.Api.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DisasterPrediction.Api.Controllers;
@@ -15,19 +15,19 @@ public class DisastersController : ControllerBase
         _disasterAlertService = disasterAlertService;
     }
 
-    //[HttpPost("regions")]
-    //public async Task<IActionResult> CreateRegions(IEnumerable<RegionRequest> requests)
-    //{
-    //    await _disasterAlertService.CreateRegionsAsync(requests);
-    //    return Ok("Regions created successfully");
-    //}
+    [HttpPost("regions")]
+    public async Task<IActionResult> CreateRegions(IEnumerable<RegionRequest> requests)
+    {
+        await _disasterAlertService.CreateRegionsAsync(requests);
+        return Ok(new { message = "Regions created successfully" });
+    }
 
 
     [HttpPost("alert-settings")]
     public async Task<IActionResult> AlertSettings(IEnumerable<AlertRequest> requests)
     {
         await _disasterAlertService.SetAlertsAsync(requests);
-        return Ok("Alert settings updated successfully");
+        return Ok(new { message = "Alert settings updated successfully" });
     }
 
     [HttpGet("disaster-risks")]
@@ -40,7 +40,7 @@ public class DisastersController : ControllerBase
     public async Task<IActionResult> SendAlert(SendAlertRequest request)
     {
         await _disasterAlertService.SendAlertAsync(request);
-        return Ok("Alert sent successfully");
+        return Ok(new { message = "Alert sent successfully" });
     }
 
     [HttpGet("alerts")]

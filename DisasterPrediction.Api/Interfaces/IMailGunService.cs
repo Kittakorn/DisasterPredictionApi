@@ -1,4 +1,4 @@
-﻿namespace DisasterPrediction.Api.Services;
+﻿namespace DisasterPrediction.Api.Interfaces;
 
 public interface IMailGunService
 {

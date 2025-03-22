@@ -11,7 +11,7 @@ public class WeatherData
     public Wind Wind { get; set; }
 
     [JsonPropertyName("rain")]
-    public Rain Rain { get; set; }
+    public Rain Rain { get; set; } = new Rain();
 }
 
 public class Main
@@ -44,7 +44,7 @@ public class Main
 public class Rain
 {
     [JsonPropertyName("1h")]
-    public double RainFall { get; set; }
+    public double RainFall { get; set; } = 0;
 }
 
 public class Wind

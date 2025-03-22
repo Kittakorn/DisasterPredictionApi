@@ -1,4 +1,5 @@
-﻿using DisasterPrediction.Api.Models;
+﻿using DisasterPrediction.Api.Interfaces;
+using DisasterPrediction.Api.Models;
 
 namespace DisasterPrediction.Api.Services;
 
@@ -14,11 +15,11 @@ public class UsgsService : IUsgsService
 
     public async Task<EarthquakeData> GetEarthquakeDataAsync(decimal latitude, decimal longitude)
     {
-        var updateAfter = DateTime.Now.ToUniversalTime()
-            .AddMinutes(-15)
-            .ToString("yyyy-MM-ddTHH:mm:ss");
+        //var updateAfter = DateTime.Now.ToUniversalTime()
+        //    .AddMinutes(-15)
+        //    .ToString("yyyy-MM-ddTHH:mm:ss");
 
-        var url = $"query?format=geojson&latitude={latitude}&longitude={longitude}&updatedafter={updateAfter}&maxradiuskm={MaxRadiusKm}";
-        return await _httpClient.GetFromJsonAsync<EarthquakeData>(url);
+        //var url = $"query?format=geojson&latitude={latitude}&longitude={longitude}&updatedafter={updateAfter}&maxradiuskm={MaxRadiusKm}";
+        return new EarthquakeData();
     }
 }

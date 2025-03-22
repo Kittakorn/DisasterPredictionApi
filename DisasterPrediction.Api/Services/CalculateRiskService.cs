@@ -1,11 +1,13 @@
 ﻿using DisasterPrediction.Api.Entities;
+using DisasterPrediction.Api.Interfaces;
 using DisasterPrediction.Api.Models;
+using Twilio.Rest.Voice.V1;
 
 namespace DisasterPrediction.Api.Services;
 
 public class RiskCalculateService : IRiskCalculateService
 {
-    public Dictionary<string, int> CalculateRiskScores(Region region, WeatherData weatherData, EarthquakeData earthquakeData)
+    public Dictionary<string, int> CalculateRiskScores(Region region, EnvironmentalData environmentalData)
     {
         var risks = new Dictionary<string, int>();
 
@@ -13,8 +15,8 @@ public class RiskCalculateService : IRiskCalculateService
         {
             var score = disasterType.DisasterTypeName switch
             {
-                "flood" => CalculateFloodRisk(weatherData.Rain.RainFall),
-                "wildfire" => CalculateWildfireRisk(weatherData.Main.Temp, weatherData.Main.Humidity),
+                "flood" => CalculateFloodRisk(environmentalData.WeatherData.Rain.RainFall),
+                "wildfire" => CalculateWildfireRisk(environmentalData.WeatherData.Main.Temp, environmentalData.WeatherData.Main.Humidity),
                 "earthquake" => CalculateEarthquakeRisk(0),
                 _ => throw new ArgumentException("Invalid disaster type")
             };
@@ -27,7 +29,8 @@ public class RiskCalculateService : IRiskCalculateService
 
     public int CalculateFloodRisk(double rainfall)
     {
-        return 0;
+
+        return 70;
     }
 
     public int CalculateEarthquakeRisk(double magnitude)
@@ -53,8 +56,8 @@ public class RiskCalculateService : IRiskCalculateService
         return riskLevel;
     }
 
-    public bool IsAlertTriggered(int riskScore, decimal thresholdScore)
+    public bool IsAlertTriggered(int riskScore, int? thresholdScore)
     {
-        return riskScore >= thresholdScore;
+        return thresholdScore == null ? false : riskScore >= thresholdScore;
     }
 }

@@ -1,6 +1,6 @@
 ﻿using DisasterPrediction.Api.Data;
 
-namespace DisasterPrediction.Api.Services;
+namespace DisasterPrediction.Api.Interfaces;
 
 public interface IDisasterAlertService
 {

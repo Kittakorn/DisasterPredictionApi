@@ -1,7 +1,6 @@
-﻿
-using DisasterPrediction.Api.Models;
+﻿using DisasterPrediction.Api.Models;
 
-namespace DisasterPrediction.Api.Services;
+namespace DisasterPrediction.Api.Interfaces;
 
 public interface IUsgsService
 {

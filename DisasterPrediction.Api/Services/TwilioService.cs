@@ -1,4 +1,5 @@
 ﻿
+using DisasterPrediction.Api.Interfaces;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 
@@ -29,9 +30,7 @@ public class TwilioService : ITwilioService
         );
 
         if (message.ErrorCode.HasValue)
-        {
             throw new InvalidOperationException($"Failed to send SMS: {message.ErrorMessage}");
-        }
     }
 
 }

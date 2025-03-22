@@ -1,8 +1,16 @@
-﻿namespace DisasterPrediction.Api.Data
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace DisasterPrediction.Api.Data;
+
+public class SendAlertRequest
 {
-    public class SendAlertRequest
-    {
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
-    }
+    [Phone]
+    [Required]
+    [DefaultValue("+66926856469")]
+    public string PhoneNumber { get; set; }
+
+    [EmailAddress]
+    [DefaultValue("kittakornkraikruan@gmail.com")]
+    public string Email { get; set; }
 }

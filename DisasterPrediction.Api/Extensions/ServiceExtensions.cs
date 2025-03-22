@@ -1,4 +1,8 @@
-﻿using DisasterPrediction.Api.Services;
+﻿using DisasterPrediction.Api.Entities;
+using DisasterPrediction.Api.Handlers;
+using DisasterPrediction.Api.Interfaces;
+using DisasterPrediction.Api.Services;
+using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -34,5 +38,34 @@ public static class ServiceExtensions
         services.AddScoped<IDisasterAlertService, DisasterAlertService>();
         services.AddSingleton<IRiskCalculateService, RiskCalculateService>();
         services.AddSingleton<ITwilioService, TwilioService>();
+
+        services.AddExceptionHandler<GlobalExceptionHandler>();
+        services.AddProblemDetails();
+    }
+
+    public static void ConfigureRedisCache(this IServiceCollection services, IConfiguration config)
+    {
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = config.GetConnectionString("Redis");
+            options.InstanceName = "DisasterPrediction_";
+        });
+    }
+
+    public static void ConfigureAppSettings(this IConfigurationBuilder config, IHostApplicationBuilder builder)
+    {
+        config.SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+            .AddEnvironmentVariables();
+    }
+
+    public static void ConfigureDbContext(this IServiceCollection services, IConfiguration config)
+    {
+        var connectionSring = config.GetConnectionString("DefaultConnection");
+        services.AddDbContext<ApplicationDbContext>(options =>
+        {
+            options.UseSqlServer(connectionSring);
+        });
     }
 }

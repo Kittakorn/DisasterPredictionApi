@@ -6,6 +6,10 @@ namespace DisasterPrediction.Api.Entities;
 
 public partial class ApplicationDbContext : DbContext
 {
+    public ApplicationDbContext()
+    {
+    }
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
@@ -21,7 +25,7 @@ public partial class ApplicationDbContext : DbContext
     {
         modelBuilder.Entity<Alert>(entity =>
         {
-            entity.HasKey(e => e.AlertId).HasName("PK__Alert__EBB16A8DDC731CC2");
+            entity.HasKey(e => e.AlertId).HasName("PK__Alert__EBB16A8DE504A6A3");
 
             entity.ToTable("Alert");
 
@@ -41,7 +45,7 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<DisasterType>(entity =>
         {
-            entity.HasKey(e => e.DisasterTypeId).HasName("PK__Disaster__739351078420573B");
+            entity.HasKey(e => e.DisasterTypeId).HasName("PK__Disaster__73935107C5747480");
 
             entity.ToTable("DisasterType");
 
@@ -51,7 +55,7 @@ public partial class ApplicationDbContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.RegionId)
                 .IsRequired()
-                .HasMaxLength(10)
+                .HasMaxLength(50)
                 .IsUnicode(false);
 
             entity.HasOne(d => d.Region).WithMany(p => p.DisasterTypes)
@@ -62,12 +66,12 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<Region>(entity =>
         {
-            entity.HasKey(e => e.RegionId).HasName("PK__Region__ACD84443C37E7C1C");
+            entity.HasKey(e => e.RegionId).HasName("PK__tmp_ms_x__ACD84443FD9605C2");
 
             entity.ToTable("Region");
 
             entity.Property(e => e.RegionId)
-                .HasMaxLength(10)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("RegionID");
             entity.Property(e => e.Latitude).HasColumnType("decimal(9, 6)");
